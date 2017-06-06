@@ -1,0 +1,20 @@
+FROM arm32v7/ubuntu:16.04
+
+ARG VERSION
+
+RUN apt update && apt install -y wget
+RUN wget https://github.com/containous/traefik/releases/download/$VERSION/traefik_linux-arm \
+    && mv traefik_linux-arm /usr/local/bin/traefik \
+    && chmod +x /usr/local/bin/traefik
+COPY entrypoint.sh /
+EXPOSE 80
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["--help"]
+
+# Metadata
+LABEL org.label-schema.vendor="Containous" \
+      org.label-schema.url="https://traefik.io" \
+      org.label-schema.name="Traefik" \
+      org.label-schema.description="A modern reverse-proxy" \    
+      org.label-schema.version="$VERSION" \
+      org.label-schema.docker.schema-version="1.0"
