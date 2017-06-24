@@ -25,4 +25,7 @@ echo "Replace $VERSION in Dockerfiles..."
 envsubst < Dockerfile.tmpl > Dockerfile
 envsubst < alpine/Dockerfile.tmpl > alpine/Dockerfile
 
+echo "Updating multi-arch Dockerfiles..."
+./alpine/arm/update.sh $VERSION
+
 echo "Done."

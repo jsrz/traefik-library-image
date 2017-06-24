@@ -1,13 +1,10 @@
-FROM $ARCH/alpine:$ALPINE_VERSION
-
-ARG TRAEFIK_VERSION
-ARG TRAEFIK_BINARY
+FROM $CONTAINER_IMAGE
 
 RUN apk --update upgrade \
     && apk --no-cache --no-progress add ca-certificates \
     && apk add openssl \
     && rm -rf /var/cache/apk/*
-RUN wget https://github.com/containous/traefik/releases/download/$TRAEFIK_VERSION/$TRAEFIK_BINARY \
+RUN wget https://github.com/containous/traefik/releases/download/$VERSION/$TRAEFIK_BINARY \
     && mv $TRAEFIK_BINARY /usr/local/bin/traefik \
     && chmod +x /usr/local/bin/traefik
 COPY entrypoint.sh /
